@@ -1,0 +1,20 @@
+{
+  "name": "@codica/code",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "brain-games": "bin/brain-games.js"
+  },
+  "dependencies": {
+    "link": "^2.1.1",
+    "readline-sync": "^1.4.10"
+  },
+  "keywords": [],
+  "description": ""
+}
