@@ -1,15 +1,22 @@
-// src/index.js
-import readlineSync from 'readline-sync';
+const readlineSync = require('readline-sync');
+const math = require('mathjs');
 
 const roundsCount = 3;
 
-export const playGame = (gameRules) => {
+const playGame = () => {
   const userName = readlineSync.question('¡Bienvenido a Brain Games!\n¿Cuál es tu nombre? ');
-  console.log(`¡Hola, ${userName}!\n${gameRules.task}`);
+  console.log(`¡Hola, ${userName}!\nResuelve las operaciones matemáticas.`);
 
   for (let i = 0; i < roundsCount; i++) {
-    const { question, correctAnswer } = gameRules.generateRoundData();
-    const userAnswer = parseInt(readlineSync.question(`Pregunta: ${question}\nTu respuesta: `), 10); // Asegurarse de que la respuesta sea un número entero
+    const number1 = Math.floor(Math.random() * 100);
+    const number2 = Math.floor(Math.random() * 100);
+    const operators = ['+', '-', '*'];
+    const operator = operators[Math.floor(Math.random() * operators.length)];
+
+    const question = `${number1} ${operator} ${number2}`;
+    const correctAnswer = math.evaluate(question);
+
+    const userAnswer = parseInt(readlineSync.question(`Pregunta: ${question}\nTu respuesta: `));
 
     if (userAnswer === correctAnswer) {
       console.log('¡Correcto!');
@@ -21,20 +28,4 @@ export const playGame = (gameRules) => {
   console.log(`¡Felicidades, ${userName}!`);
 };
 
-// bin/brain-calc.js
-
-
-const gameRules = {
-  task: 'Resuelve las operaciones matemáticas.',
-  generateRoundData: () => {
-    const operators = ['+', '-', '*'];
-    const operator = operators[Math.floor(Math.random() * operators.length)];
-    const number1 = Math.floor(Math.random() * 100);
-    const number2 = Math.floor(Math.random() * 100);
-    const question = `${number1} ${operator} ${number2}`;
-    const correctAnswer = eval(question); // ¡Cuidado con eval!
-    return { question, correctAnswer };
-  },
-};
-
-playGame(gameRules);
+playGame();
